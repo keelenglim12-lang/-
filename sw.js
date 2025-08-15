@@ -1,11 +1,11 @@
 const CACHE_NAME = 'execution-manager-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
-  '/manifest.json',
-  '/inspiration-quotes.json',
+  './',
+  './index.html',
+  './styles.css',
+  './script.js',
+  './manifest.json',
+  './inspiration-quotes.json',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
 

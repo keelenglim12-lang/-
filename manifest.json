@@ -2,7 +2,7 @@
   "name": "執行力管家",
   "short_name": "執行力管家",
   "description": "提升您的執行力和時間管理效率",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#007AFF",

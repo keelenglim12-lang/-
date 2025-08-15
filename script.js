@@ -1566,9 +1566,10 @@ function selectPopupQuickTask(task) {
 // PWA Service Worker 註冊
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+    // 簡化的Service Worker註冊
+    navigator.serviceWorker.register('./sw.js')
       .then(registration => {
-        console.log('SW registered: ', registration);
+        console.log('SW registered successfully: ', registration);
       })
       .catch(registrationError => {
         console.log('SW registration failed: ', registrationError);
