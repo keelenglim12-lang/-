@@ -1,0 +1,1418 @@
+/* 導入字體 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&display=swap');
+
+/* CSS 變數 - Apple 風格設計系統 */
+:root {
+  /* 色彩系統 - Apple 風格 */
+  --bg-primary: #000000;
+  --bg-secondary: #1C1C1E;
+  --bg-tertiary: #2C2C2E;
+  --bg-surface: #3A3A3C;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #EBEBF5;
+  --text-muted: #8E8E93;
+  
+  --accent-primary: #007AFF;
+  --accent-secondary: #5AC8FA;
+  --accent-hover: #0056CC;
+  
+  --success: #34C759;
+  --warning: #FF9500;
+  --danger: #FF3B30;
+  
+  --border-light: #38383A;
+  --border-medium: #48484A;
+  
+  /* 間距系統 - 更寬鬆的留白 */
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  
+  /* 字體系統 - Apple 風格 */
+  --font-family-cn: -apple-system, 'SF Pro Display', 'Noto Sans TC', BlinkMacSystemFont, sans-serif;
+  --font-family-en: -apple-system, 'SF Pro Display', 'Inter', BlinkMacSystemFont, sans-serif;
+  --font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  
+  --font-size-xs: 15px;
+  --font-size-sm: 17px;
+  --font-size-base: 20px;
+  --font-size-lg: 24px;
+  --font-size-xl: 30px;
+  --font-size-2xl: 36px;
+  
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  
+  /* 圓角與陰影 - Apple 風格 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.16);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.24);
+  
+  /* 動畫 - Apple 風格 */
+  --transition-fast: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-normal: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 基礎重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-cn);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 左側勵志文字框 - Apple 風格 */
+.inspiration-text {
+  position: fixed;
+  left: var(--space-xl);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  max-width: 300px;
+  padding: var(--space-xl);
+  background: rgba(28, 28, 30, 0.3);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.inspiration-text:hover {
+  background: rgba(28, 28, 30, 0.5);
+  transform: translateY(-50%) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.inspiration-text p {
+  font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  line-height: var(--line-height-tight);
+  color: #EBEBF5;
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+/* 容器佈局 - Apple 風格 */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  min-height: 100vh;
+}
+
+/* 標題區域 - Apple 風格 */
+.header {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: none;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.header-main {
+  flex: 1;
+}
+
+.progress-stats {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: none;
+  min-width: 100px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.stat-number {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--accent-primary);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header h1 {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.header h1 i {
+  color: var(--accent-primary);
+  font-size: var(--font-size-xl);
+}
+
+.date-display {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* 日曆組件 - Apple 風格 */
+.calendar-section {
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  width: 300px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: none;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  background: var(--bg-tertiary);
+  border-bottom: none;
+}
+
+.calendar-nav-btn {
+  background: var(--bg-surface);
+  border: none;
+  color: var(--text-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.calendar-nav-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+#calendarTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-family-mono);
+}
+
+.calendar-grid {
+  padding: var(--space-lg);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.calendar-weekdays div {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  font-family: var(--font-family-mono);
+  padding: var(--space-xs);
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-xs);
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+  font-family: var(--font-family-mono);
+  position: relative;
+}
+
+.calendar-day:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.calendar-day.other-month {
+  color: var(--text-muted);
+}
+
+.calendar-day.today {
+  background: var(--accent-primary);
+  color: white;
+  font-weight: 600;
+}
+
+.calendar-day.selected {
+  background: var(--accent-secondary);
+  color: white;
+  font-weight: 600;
+}
+
+.calendar-day.has-tasks::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+}
+
+/* 主要內容區域 - Apple 風格 */
+.schedule-section {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: none;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.add-task-section h2,
+.schedule-section h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: var(--space-xl);
+  border-bottom: none;
+  background: var(--bg-tertiary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.add-task-section h2 i,
+.schedule-section h2 i {
+  color: var(--accent-primary);
+}
+
+
+
+/* 常用任務區域 - Apple 風格 */
+.quick-tasks-section {
+  padding: var(--space-xl);
+  border-bottom: none;
+}
+
+.quick-tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.quick-tasks-header h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.quick-tasks-header h3 i {
+  color: var(--accent-secondary);
+}
+
+.edit-quick-tasks-btn {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.edit-quick-tasks-btn:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+}
+
+.quick-tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-sm);
+}
+
+.quick-task-btn {
+  background: var(--bg-surface);
+  border: none;
+  color: var(--text-primary);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  text-align: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.quick-task-btn:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.quick-task-btn.selected {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+.quick-task-btn .task-title {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.quick-task-btn .task-time {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.quick-task-btn.selected .task-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.quick-task-btn .task-icon {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.quick-task-btn.selected .task-icon {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 表單樣式 - Apple 風格 */
+.task-form {
+  padding: var(--space-xl);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+/* 鬧鐘開關組的特殊樣式 */
+.form-group:has(.toggle-switch) {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.form-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--bg-surface);
+  border: none;
+  color: var(--text-primary);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  transition: var(--transition-normal);
+  font-family: var(--font-family-cn);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  background: var(--bg-tertiary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+  transform: scale(1.02);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* 開關按鈕 */
+.toggle-switch {
+  position: relative;
+  width: 48px;
+  height: 24px;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--border-medium);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  pointer-events: none;
+}
+
+.toggle-label::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: var(--transition-fast);
+}
+
+.toggle-input:checked + .toggle-label {
+  background: var(--accent-primary);
+}
+
+.toggle-input:checked + .toggle-label::before {
+  transform: translateX(24px);
+}
+
+/* 便捷時間設置按鈕 */
+.quick-time-btn {
+  background: var(--accent-secondary);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-left: var(--space-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+.quick-time-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-time-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* 按鈕系統 - Apple 風格 */
+.add-btn,
+.save-quick-btn,
+.save-edit-btn {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  align-self: flex-start;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.add-btn:hover,
+.save-quick-btn:hover,
+.save-edit-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+.cancel-btn {
+  background: var(--bg-surface);
+  border: none;
+  color: var(--text-secondary);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cancel-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* 行程表 */
+.schedule-table {
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 2fr 1fr 80px;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--bg-tertiary);
+  border-bottom: none;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+}
+
+.header-cell {
+  font-family: var(--font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 20px;
+}
+
+.table-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.task-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 2fr 1fr 80px;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: none;
+  transition: var(--transition-normal);
+  align-items: center;
+}
+
+.task-row:hover {
+  background: var(--bg-surface);
+  transform: translateX(4px);
+}
+
+.task-cell {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.task-cell.task-time {
+  font-family: var(--font-family-mono);
+  font-weight: 500;
+  color: var(--accent-secondary);
+}
+
+.task-cell.task-content {
+  font-weight: 500;
+}
+
+.task-cell.task-location {
+  color: var(--text-secondary);
+}
+
+.delete-btn {
+  background: var(--bg-surface);
+  border: none;
+  color: var(--text-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.delete-btn:hover {
+  background: var(--danger);
+  color: white;
+  transform: scale(1.1);
+}
+
+.no-tasks {
+  text-align: center;
+  padding: var(--space-2xl);
+  color: var(--text-muted);
+  font-style: italic;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: none;
+  margin: var(--space-xl);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* 模態框 - Apple 風格 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: none;
+  box-shadow: var(--shadow-lg);
+  width: 90%;
+  max-width: 500px;
+  margin: 5% auto;
+  overflow: hidden;
+  animation: modalSlideIn var(--transition-slow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xl);
+  background: var(--bg-tertiary);
+  border-bottom: none;
+}
+
+.modal-header h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.modal-header h2 i {
+  color: var(--accent-primary);
+}
+
+.close {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.close:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.modal-body {
+  padding: var(--space-xl);
+}
+
+.reminder-info {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  border: 1px solid var(--border-light);
+}
+
+.reminder-info p {
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-sm);
+}
+
+.reminder-info strong {
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.confirmation-form h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.confirm-btn {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+
+.confirm-btn:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.start-btn {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.start-btn:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.delay-btn {
+  background: var(--warning);
+  color: white;
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.delay-btn:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 最近使用任務列表 */
+.recent-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.recent-task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md);
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.recent-task-item:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+}
+
+.recent-task-info {
+  flex: 1;
+}
+
+.recent-task-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.recent-task-details {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-family-mono);
+}
+
+.recent-task-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.recent-task-actions button {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-size: var(--font-size-xs);
+}
+
+.recent-task-actions button:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+/* 編輯模式 */
+.quick-task-btn.edit-mode {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
+  padding: var(--space-sm);
+}
+
+.edit-task-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.edit-task-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.edit-task-btn,
+.delete-task-btn {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-size: var(--font-size-xs);
+}
+
+.edit-task-btn:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+.delete-task-btn:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: white;
+}
+
+.quick-task-btn.add-new-task {
+  background: var(--bg-surface);
+  border: 2px dashed var(--border-medium);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-weight: 500;
+}
+
+.quick-task-btn.add-new-task:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* 通知系統 */
+.notification {
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 500;
+  max-width: 300px;
+  animation: slideInRight var(--transition-normal);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.notification-success {
+  border-color: var(--success);
+  background: rgba(22, 163, 74, 0.1);
+}
+
+.notification-warning {
+  border-color: var(--warning);
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.notification-error {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* 響鈴動畫 */
+.bell-ringing {
+  animation: bellRing 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes bellRing {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-sm);
+    gap: var(--space-md);
+  }
+  
+  /* 標題區域適配 */
+  .header h1 {
+    font-size: 28px;
+  }
+  
+  .progress-stats {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  /* 日曆適配 */
+  .calendar-section {
+    position: relative;
+    width: 100%;
+    top: auto;
+    right: auto;
+    margin-bottom: var(--space-md);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .calendar-grid {
+    padding: var(--space-md);
+  }
+  
+  /* 行程表適配 */
+  .schedule-section h2 {
+    font-size: var(--font-size-lg);
+    text-align: center;
+  }
+  
+  .table-header,
+  .task-row {
+    grid-template-columns: 50px 1fr 1.2fr 0.8fr 50px;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    font-size: var(--font-size-xs);
+  }
+  
+  .header-cell {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+  }
+  
+  /* 表單適配 */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: var(--space-lg);
+    font-size: var(--font-size-base);
+  }
+  
+  /* 按鈕適配 */
+  .add-task-btn,
+  .add-btn,
+  .save-quick-btn,
+  .save-edit-btn,
+  .cancel-btn {
+    padding: var(--space-lg) var(--space-xl);
+    font-size: var(--font-size-base);
+    min-height: 48px;
+  }
+  
+  /* 常用任務適配 */
+  .quick-tasks-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .quick-task-btn {
+    padding: var(--space-lg);
+    font-size: var(--font-size-base);
+    min-height: 60px;
+  }
+  
+  /* 模態框適配 */
+  .modal-content {
+    width: 95%;
+    margin: 5% auto;
+    max-height: 90vh;
+  }
+  
+  .popup-task-modal {
+    width: 95%;
+    max-width: none;
+  }
+  
+  .popup-task-modal .quick-tasks-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .popup-task-modal .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  /* 勵志文字框適配 */
+  .inspiration-text {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin: var(--space-lg) auto;
+    max-width: 90%;
+    text-align: center;
+    padding: var(--space-lg);
+  }
+  
+  .inspiration-text:hover {
+    transform: none;
+  }
+  
+  /* 開關按鈕適配 */
+  .toggle-switch {
+    width: 56px;
+    height: 28px;
+  }
+  
+  .toggle-label::before {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .toggle-input:checked + .toggle-label::before {
+    transform: translateX(28px);
+  }
+  
+  /* 便捷時間按鈕適配 */
+  .quick-time-btn {
+    padding: var(--space-md) var(--space-lg);
+    font-size: var(--font-size-sm);
+    min-height: 40px;
+  }
+}
+
+/* 超小螢幕適配 */
+@media (max-width: 480px) {
+  .container {
+    padding: var(--space-xs);
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  
+  .table-header,
+  .task-row {
+    grid-template-columns: 40px 1fr 1fr 0.8fr 40px;
+    gap: var(--space-xs);
+    padding: var(--space-xs);
+  }
+  
+  .header-cell {
+    font-size: 12px;
+  }
+  
+  .task-cell {
+    font-size: var(--font-size-xs);
+  }
+  
+  .modal-content {
+    width: 98%;
+    margin: 2% auto;
+  }
+}
+
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-light);
+}
+
+/* 選擇文字樣式 */
+::selection {
+  background: var(--accent-primary);
+  color: white;
+}
+
+/* 數字等寬 */
+.task-time,
+.calendar-day,
+#currentDate {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 行程表操作區域 - Apple 風格 */
+.schedule-actions {
+  padding: var(--space-xl);
+  border-top: none;
+  background: var(--bg-tertiary);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.add-task-btn {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  padding: var(--space-lg) var(--space-2xl);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.add-task-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+.add-task-btn i {
+  font-size: var(--font-size-sm);
+}
+
+/* 彈出式新增任務模態框特殊樣式 */
+.popup-task-modal {
+  width: 95%;
+  max-width: 1200px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.popup-task-modal .modal-body {
+  padding: 0;
+}
+
+.popup-task-modal .quick-tasks-section {
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 0;
+}
+
+.popup-task-modal .task-form {
+  padding: var(--space-lg);
+}
+
+.popup-task-modal .quick-tasks-grid {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-md);
+}
+
+.popup-task-modal .form-row {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+}

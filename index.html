@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007AFF">
+    <meta name="description" content="執行力管家 - 提升您的執行力和時間管理效率">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="執行力管家">
+    <title>執行力管家</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+    <!-- 左側勵志文字框 -->
+    <div class="inspiration-text">
+        <p>載入中...</p>
+    </div>
+
+    <div class="container">
+        <!-- 標題區域 -->
+        <header class="header">
+            <div class="header-main">
+                <h1><i class="fas fa-tasks"></i> 執行力管家</h1>
+                <div class="date-display" id="currentDate"></div>
+            </div>
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="todayCompleted">0</div>
+                    <div class="stat-label">今日完成</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="streakDays">0</div>
+                    <div class="stat-label">連續天數</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="todayFocus">0</div>
+                    <div class="stat-label">當日焦點</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 日曆組件 -->
+        <div class="calendar-section">
+            <div class="calendar-header">
+                <button class="calendar-nav-btn" id="prevMonth">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h3 id="calendarTitle"></h3>
+                <button class="calendar-nav-btn" id="nextMonth">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="calendar-grid">
+                <div class="calendar-weekdays">
+                    <div>日</div>
+                    <div>一</div>
+                    <div>二</div>
+                    <div>三</div>
+                    <div>四</div>
+                    <div>五</div>
+                    <div>六</div>
+                </div>
+                <div class="calendar-days" id="calendarDays">
+                    <!-- 日期將在這裡動態生成 -->
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 行程表 -->
+        <div class="schedule-section">
+            <h2><i class="fas fa-calendar-day"></i> 行程表 - <span id="scheduleDateDisplay"></span></h2>
+            <div class="schedule-table">
+                <div class="table-header">
+                    <div class="header-cell">鬧鐘</div>
+                    <div class="header-cell">執行時間</div>
+                    <div class="header-cell">任務目標</div>
+                    <div class="header-cell">執行地點</div>
+                    <div class="header-cell">操作</div>
+                </div>
+                <div class="table-body" id="taskList">
+                    <!-- 任務列表將在這裡動態生成 -->
+                </div>
+            </div>
+            <div class="schedule-actions">
+                <button class="add-task-btn" onclick="showAddTaskSection()">
+                    <i class="fas fa-plus"></i> 新增任務
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 彈出式新增任務模態框 -->
+    <div id="popupTaskModal" class="modal">
+        <div class="modal-content popup-task-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> 新增任務 - <span id="popupSelectedDateDisplay"></span></h2>
+                <span class="close" id="closePopupTaskModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- 常用任務選擇器 -->
+                <div class="quick-tasks-section">
+                    <div class="quick-tasks-header">
+                        <h3><i class="fas fa-star"></i> 常用任務</h3>
+                        <button class="edit-quick-tasks-btn" onclick="toggleQuickTasksEdit()">
+                            <i class="fas fa-edit"></i> 編輯
+                        </button>
+                    </div>
+                    <div class="quick-tasks-grid" id="popupQuickTasksGrid">
+                        <!-- 常用任務按鈕將在這裡動態生成 -->
+                    </div>
+                </div>
+                
+                <form id="popupTaskForm" class="task-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="popupAlarmToggle">鬧鐘</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="popupAlarmToggle" class="toggle-input">
+                                <label for="popupAlarmToggle" class="toggle-label"></label>
+                            </div>
+                            <button type="button" class="quick-time-btn" onclick="setQuickTime()" title="設置當下時間的25分鐘任務">
+                                <i class="fas fa-clock"></i> 25分鐘
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label for="popupStartTime">開始時間</label>
+                            <input type="time" id="popupStartTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="popupEndTime">結束時間</label>
+                            <input type="time" id="popupEndTime">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="popupTaskContent">任務目標</label>
+                            <input type="text" id="popupTaskContent" placeholder="請輸入任務目標" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="popupTaskLocation">執行地點</label>
+                            <input type="text" id="popupTaskLocation" placeholder="請輸入執行地點" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="add-btn">
+                            <i class="fas fa-plus"></i> 新增任務
+                        </button>
+                        <button type="button" class="cancel-btn" onclick="hideAddTaskSection()">
+                            <i class="fas fa-times"></i> 取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提醒卡模態框 -->
+    <div id="reminderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-bell"></i> 任務提醒</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="reminder-info">
+                    <p><strong>現在時間：</strong><span id="currentTime"></span></p>
+                    <p><strong>任務目標：</strong><span id="reminderTask"></span></p>
+                    <p><strong>執行地點：</strong><span id="reminderLocation"></span></p>
+                </div>
+                <div class="confirmation-form">
+                    <h3>請描述您將如何執行這個任務：</h3>
+                    <div class="form-group">
+                        <label for="confirmExecution">執行描述</label>
+                        <textarea id="confirmExecution" placeholder="請描述您將如何執行這個任務，包含：任務目標、執行時間、執行地點" rows="4" required></textarea>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="button" id="startTask" class="start-btn">
+                            <i class="fas fa-play"></i> 開始
+                        </button>
+                        <button type="button" id="delayTask" class="delay-btn">
+                            <i class="fas fa-clock"></i> 延後 10 分鐘
+                        </button>
+                        <button type="button" id="confirmTask" class="confirm-btn">
+                            <i class="fas fa-check"></i> 確認描述
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最近使用任務模態框 -->
+    <div id="recentTasksModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-history"></i> 最近使用</h2>
+                <span class="close" id="closeRecentTasksModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="recent-tasks-list" id="recentTasksList">
+                    <!-- 最近使用的任務將在這裡動態生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 常用任務編輯模態框 -->
+    <div id="quickTaskEditModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-star"></i> 編輯常用任務</h2>
+                <span class="close" id="closeQuickTaskEditModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="quickTaskEditForm">
+                    <div class="form-group">
+                        <label for="quickTaskTitle">任務標題</label>
+                        <input type="text" id="quickTaskTitle" placeholder="請輸入任務標題" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quickTaskStartTime">預設開始時間</label>
+                            <input type="time" id="quickTaskStartTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quickTaskEndTime">預設結束時間</label>
+                            <input type="time" id="quickTaskEndTime">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="quickTaskLocation">執行地點</label>
+                        <input type="text" id="quickTaskLocation" placeholder="請輸入執行地點" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-quick-btn">
+                            <i class="fas fa-save"></i> 保存常用任務
+                        </button>
+                        <button type="button" class="cancel-btn" id="cancelQuickTaskEdit">
+                            <i class="fas fa-times"></i> 取消
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 音頻元素 -->
+    <audio id="alarmSound" loop preload="auto">
+        <!-- 自定義鈴聲 - 請將您的音頻檔案放在專案根目錄，並修改 src 路徑 -->
+        <source src="alarm.mp3" type="audio/mpeg">
+        <source src="alarm.wav" type="audio/wav">
+        <source src="alarm.ogg" type="audio/ogg">
+        <!-- 備用：使用 Web Audio API 生成的音頻 -->
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgoQdDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
